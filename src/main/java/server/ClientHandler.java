@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ClientHandler extends Thread {
@@ -32,6 +33,9 @@ public class ClientHandler extends Thread {
         {
             String received;
             String toreturn;
+            ArrayList<Bank> banks = new ArrayList<Bank>();
+            banks.add(new Bank(new ArrayList<Ingredient>()));
+            banks.add(new Bank(new ArrayList<Ingredient>()));
             while (true)
             {
                 try {
@@ -59,15 +63,23 @@ public class ClientHandler extends Thread {
                     // answer from the client
                     switch (received) {
 
-                        case "Time" :
-                            toreturn = fortime.format(date);
-                            dos.writeUTF(toreturn);
-                            break;
+                        case "ADD" :
+                            System.out.println("AQUI");
 
-                        default:
-                            Ingredient ingredient = IngredientGenerator.infiniteIngredient();
-                            dos.writeUTF(ingredient.getId());
+                            Ingredient ingredient = new Ingredient( dis.readUTF());
+                            int bankId = Integer.parseInt(dis.readUTF());
+                            banks.get(bankId).pushIngredient(ingredient);
+                            System.out.println(banks.size());
                             break;
+                        case "PLEASE":
+                            System.out.println("AQUI");
+                            dos.writeUTF("ADD");
+                            break;
+//                        default:
+//                            dos.writeUTF("NO MORE");
+////                            Ingredient ingredient2 = IngredientGenerator.generateIngredient();
+////                            dos.writeUTF(ingredient2.getId());
+//                            break;
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

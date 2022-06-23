@@ -3,7 +3,7 @@ package common;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class IngredientGenerator {
-    public static Ingredient infiniteIngredient(){
+    public static Ingredient generateIngredient(){
         int randomNum = ThreadLocalRandom.current().nextInt(1, 3 + 1);
         switch (randomNum){
             case 2: return new Matches();

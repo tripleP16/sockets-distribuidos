@@ -12,7 +12,7 @@ public class Server
     {
         // server is listening on port 5056
         ServerSocket ss = new ServerSocket(5056);
-
+        System.out.println("Server Corriendo en el puerto: " + String.valueOf(5056));
         // running infinite loop for getting
         // client request
         while (true)
