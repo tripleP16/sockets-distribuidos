@@ -1,5 +1,8 @@
 package server;
 
+import common.Ingredient;
+import common.IngredientGenerator;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -34,8 +37,8 @@ public class ClientHandler extends Thread {
                 try {
 
                     // Ask user what he wants
-                    dos.writeUTF("What do you want?[Date | Time]..\n"+
-                            "Type Exit to terminate connection.");
+//                    dos.writeUTF("What do you want?[Date | Time]..\n"+
+//                            "Type Exit to terminate connection.");
 
                     // receive the answer from client
                     received = dis.readUTF();
@@ -56,18 +59,14 @@ public class ClientHandler extends Thread {
                     // answer from the client
                     switch (received) {
 
-                        case "Date" :
-                            toreturn = fordate.format(date);
-                            dos.writeUTF(toreturn + " " + s);
-                            break;
-
                         case "Time" :
                             toreturn = fortime.format(date);
                             dos.writeUTF(toreturn);
                             break;
 
                         default:
-                            dos.writeUTF("Invalid input");
+                            Ingredient ingredient = IngredientGenerator.infiniteIngredient();
+                            dos.writeUTF(ingredient.getId());
                             break;
                     }
                 } catch (IOException e) {
