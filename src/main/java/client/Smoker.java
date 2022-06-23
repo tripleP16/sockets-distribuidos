@@ -12,7 +12,7 @@ public class Smoker {
     public static void main(String[] args){
         try {
             InetAddress ip = InetAddress.getByName("localhost");
-            Socket s = new Socket(ip, 5056);
+            Socket s = new Socket("192.168.1.8", 5056);
             DataInputStream dis = new DataInputStream(s.getInputStream());
             DataOutputStream dos = new DataOutputStream(s.getOutputStream());
             Ingredient infiniteIngredient = IngredientGenerator.infiniteIngredient();
